@@ -1,18 +1,20 @@
-package com.back.boundedContext.post.entity;
+package com.back.boundedContext.post.domain;
 
 
 import com.back.global.jpa.entity.BaseIdAndTime;
-import com.back.boundedContext.member.entity.Member;
+import com.back.boundedContext.member.domain.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class PostComment extends BaseIdAndTime {
 	@ManyToOne(fetch = LAZY)
 	private Post post;

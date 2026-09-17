@@ -1,5 +1,5 @@
 
-package com.back.jpa.entity;
+package com.back.global.jpa.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;

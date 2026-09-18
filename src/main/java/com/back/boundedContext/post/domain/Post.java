@@ -2,7 +2,6 @@ package com.back.boundedContext.post.domain;
 
 
 import com.back.global.jpa.entity.BaseIdAndTime;
-import com.back.boundedContext.member.domain.Member;
 import com.back.shared.post.dto.PostCommentDto;
 import com.back.shared.post.event.PostCommentCreatedEvent;
 
@@ -27,25 +26,23 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter
 public class Post extends BaseIdAndTime {
 	@ManyToOne(fetch = LAZY)
-	private Member author;
+	private PostMember author;
 	private String title;
 	@Column(columnDefinition = "LONGTEXT")
 	private String content;
 	@OneToMany(mappedBy = "post", cascade = {PERSIST, REMOVE}, orphanRemoval = true)
 	private List<PostComment> comments = new ArrayList<>();
 
-	public Post(Member author, String title, String content) {
+	public Post(PostMember author, String title, String content) {
 		this.author = author;
 		this.title = title;
 		this.content = content;
 	}
 
-	public PostComment addComment(Member author, String content) {
+	public PostComment addComment(PostMember author, String content) {
 		PostComment postComment = new PostComment(this, author, content);
 
 		comments.add(postComment);
-
-		author.increaseActivityScore(1);
 
 		publishEvent(new PostCommentCreatedEvent(new PostCommentDto(postComment)));
 

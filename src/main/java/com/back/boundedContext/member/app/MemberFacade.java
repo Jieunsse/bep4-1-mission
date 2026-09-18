@@ -1,6 +1,7 @@
 package com.back.boundedContext.member.app;
 
 import com.back.boundedContext.member.domain.Member;
+import com.back.boundedContext.member.domain.MemberPolicy;
 import com.back.boundedContext.member.out.MemberRepository;
 import com.back.global.rsData.RsData;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class MemberFacade {
 	private final MemberRepository memberRepository;
 	private final MemberJoinUseCase memberJoinUseCase;
+	private final MemberPolicy memberPolicy;
 
 	@Transactional(readOnly = true)
 
@@ -36,6 +38,11 @@ public class MemberFacade {
 	@Transactional(readOnly = true)
 	public Optional<Member> findByUsername(String username) {
 		return memberRepository.findByUsername(username);
+	}
+
+	public String getRandomSecureTip() {
+		return "비밀번호의 유효기간은 %d 입니다."
+			.formatted(memberPolicy.getNeedToChangePasswordDays());
 	}
 
 	@Transactional(readOnly = true)

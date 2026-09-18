@@ -4,6 +4,8 @@ package com.back.boundedContext.member.domain;
 
 
 import com.back.global.jpa.entity.BaseIdAndTime;
+import com.back.shared.member.dto.MemberDto;
+import com.back.shared.member.event.MemberModifiedEvent;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -28,6 +30,11 @@ public class Member extends BaseIdAndTime {
 	}
 
 	public int increaseActivityScore(int amount) {
-		return this.activityScore += amount;
+		if (amount == 0) return getActivityScore();
+
+		activityScore += amount;
+		publishEvent(new MemberModifiedEvent(new MemberDto(this)));
+
+		return activityScore;
 	}
 }

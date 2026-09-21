@@ -28,6 +28,10 @@ public class PostSupport {
 		return postRepository.findAll();
 	}
 
+	public List<Post> findByOrderByIdDesc() {
+		return postRepository.findByOrderByIdDesc();
+	}
+
 	public Optional<PostMember> findMemberByUsername(String username) {
 		return postMemberRepository.findByUsername(username);
 	}

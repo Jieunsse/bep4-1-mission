@@ -38,6 +38,11 @@ public class PostFacade {
 		return postSupport.findAll();
 	}
 
+	@Transactional(readOnly = true)
+	public List<Post> findByOrderByIdDesc() {
+		return postSupport.findByOrderByIdDesc();
+	}
+
 	@Transactional
 	public PostMember syncMember(MemberDto member) {
 		return postSyncMemberUseCase.syncMember(member);

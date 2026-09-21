@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Configuration
 @Slf4j
 public class PostDataInit {
@@ -65,12 +67,16 @@ public class PostDataInit {
 
 	@Transactional
 	public void makeBasePostComments() {
-		Post post1 = postFacade.findById(1).get();
-		Post post2 = postFacade.findById(2).get();
-		Post post3 = postFacade.findById(3).get();
-		Post post4 = postFacade.findById(4).get();
-		Post post5 = postFacade.findById(5).get();
-		Post post6 = postFacade.findById(6).get();
+		List<Post> posts = postFacade.findAll();
+		if (posts.size() < 6)
+			return;
+
+		Post post1 = posts.get(0);
+		Post post2 = posts.get(1);
+		Post post3 = posts.get(2);
+		Post post4 = posts.get(3);
+		Post post5 = posts.get(4);
+		Post post6 = posts.get(5);
 
 		PostMember user1Member = postFacade.findMemberByUsername("user1").get();
 		PostMember user2Member = postFacade.findMemberByUsername("user2").get();

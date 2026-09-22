@@ -2,6 +2,7 @@ package com.back.boundedContext.cash.domain;
 
 import com.back.global.jpa.entity.BaseEntity;
 import com.back.global.jpa.entity.BaseIdAndTimeManual;
+import com.back.shared.cash.dto.WalletDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,6 +29,10 @@ public class Wallet extends BaseIdAndTimeManual {
 	public Wallet(CashMember holder) {
 		super(holder.getId());
 		this.holder = holder;
+	}
+
+	public WalletDto toDto() {
+		return new WalletDto(getId(), getCreateDate(), getModifyDate(), holder.getId(), holder.getUsername(), balance);
 	}
 
 	public boolean hasBalance() {

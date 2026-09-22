@@ -1,6 +1,5 @@
 package com.back.shared.market.dto;
 
-import com.back.boundedContext.market.domain.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,17 +18,4 @@ public class OrderDto {
 	private final LocalDateTime requestPaymentDate;
 	private final LocalDateTime paymentDate;
 
-	public OrderDto(Order order) {
-		this(
-			order.getId(),
-			order.getCreateDate(),
-			order.getModifyDate(),
-			order.getBuyer().getId(),
-			order.getBuyer().getNickname(),
-			order.getPrice(),
-			order.getSalePrice(),
-			order.getRequestPaymentDate(),
-			order.getPaymentDate()
-		);
-	}
 }

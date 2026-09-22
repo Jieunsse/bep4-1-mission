@@ -33,8 +33,12 @@ public class Member extends BaseIdAndTime {
 		if (amount == 0) return getActivityScore();
 
 		activityScore += amount;
-		publishEvent(new MemberModifiedEvent(new MemberDto(this)));
+		publishEvent(new MemberModifiedEvent(toDto()));
 
 		return activityScore;
+	}
+
+	public MemberDto toDto() {
+		return new MemberDto(getId(), getCreateDate(), getModifyDate(), username, nickname, activityScore);
 	}
 }

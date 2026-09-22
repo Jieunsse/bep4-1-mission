@@ -49,10 +49,10 @@ public class CashCompleteOrderPaymentUseCase {
 		} else {
 			eventPublisher.publish(new CashOrderPaymentFailedEvent(
 				"400-1",
-				"충전은 완료했지만 %번 주문을 결제완료처리를 하기에는 예치금이 부족합니다.".formatted(event.getOrder().getId()),
+				"충전은 완료했지만 %d번 주문을 결제완료처리를 하기에는 예치금이 부족합니다.".formatted(event.getOrder().getId()),
 				event.getOrder(),
 				event.getPgPaymentAmount(),
-				event.getPgPaymentAmount() - customerWallet.getBalance()
+				event.getOrder().getSalePrice() - customerWallet.getBalance()
 			));
 		}
 	}

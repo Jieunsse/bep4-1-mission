@@ -1,6 +1,7 @@
 
 package com.back.boundedContext.member.domain;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -8,20 +9,25 @@ import java.time.LocalDateTime;
 
 @Service
 public class MemberPolicy {
-	private static final int PASSWORD_CHANGE_DAYS = 90;
+	private static int passwordChangeDays;
+
+	@Value("${custom.member.password.changeDays}")
+	public void setPasswordChangeDays(int passwordChangeDays) {
+		MemberPolicy.passwordChangeDays = passwordChangeDays;
+	}
 
 	public Duration getNeedToChangePasswordPeriod() {
-		return Duration.ofDays(PASSWORD_CHANGE_DAYS);
+		return Duration.ofDays(passwordChangeDays);
 	}
 
 	public int getNeedToChangePasswordDays() {
-		return PASSWORD_CHANGE_DAYS;
+		return passwordChangeDays;
 	}
 
 	public boolean isNeedToChangePassword(LocalDateTime lastChangeDate) {
 		if (lastChangeDate == null) return true;
 
-		return lastChangeDate.plusDays(PASSWORD_CHANGE_DAYS)
+		return lastChangeDate.plusDays(passwordChangeDays)
 			.isBefore(LocalDateTime.now());
 	}
 }

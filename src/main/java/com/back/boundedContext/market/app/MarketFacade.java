@@ -5,9 +5,8 @@ import com.back.boundedContext.market.domain.MarketMember;
 import com.back.boundedContext.market.domain.Order;
 import com.back.boundedContext.market.domain.Product;
 import com.back.global.rsData.RsData;
-import com.back.shared.cash.event.CashOrderPaymentFailedEvent;
-import com.back.shared.cash.event.CashOrderPaymentSucceededEvent;
 import com.back.shared.market.dto.MarketMemberDto;
+import com.back.shared.market.dto.OrderDto;
 import com.back.shared.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -98,12 +97,12 @@ public class MarketFacade {
 	}
 
 	@Transactional
-	public void handle(CashOrderPaymentSucceededEvent event) {
-		marketCompleteOrderPaymentUseCase.handle(event);
+	public void completeOrderPayment(OrderDto order) {
+		marketCompleteOrderPaymentUseCase.completeOrderPayment(order);
 	}
 
 	@Transactional
-	public void handle(CashOrderPaymentFailedEvent event) {
-		marketCancelOrderRequestPaymentUseCase.handle(event);
+	public void cancelOrderRequestPayment(OrderDto order) {
+		marketCancelOrderRequestPaymentUseCase.cancelOrderRequestPayment(order);
 	}
 }

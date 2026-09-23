@@ -51,6 +51,7 @@ public class PayoutDataInit {
 			self.forceMakePayoutReadyCandidatesItems();
 			self.collectPayoutItemsMore();
 			self.runCollectPayoutItemsBatchJob();
+			self.completePayoutsMore();
 		};
 	}
 
@@ -65,6 +66,13 @@ public class PayoutDataInit {
 	@Transactional
 	public void collectPayoutItemsMore() {
 		payoutFacade.collectPayoutItemsMore(4);
+	}
+
+	@Transactional
+	public void completePayoutsMore() {
+		payoutFacade.completePayoutsMore(4);
+		payoutFacade.completePayoutsMore(2);
+		payoutFacade.completePayoutsMore(2);
 	}
 
 	public void runCollectPayoutItemsBatchJob() {

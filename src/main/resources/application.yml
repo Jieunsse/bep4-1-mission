@@ -33,8 +33,10 @@ logging:
     org.springframework.transaction.interceptor: TRACE
 custom:
   global:
-    internalBackUrl: http://localhost:8080
+    internalBackUrl: http://localhost:${server.port:8080}
     holdingMemberId: 2
+  payout:
+    readyWaitingDays: 14
   member:
     password:
       changeDays: 90
